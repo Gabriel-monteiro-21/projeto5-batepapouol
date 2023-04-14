@@ -100,7 +100,7 @@ conteudo::-webkit-scrollbar {
     font-weight: 400;
     font-size: 20px;
 
-    border: none;
+    border: 1px solid #FFFFFF;
 }
 .rodape button{
     background-color: #FFFFFF;
@@ -109,4 +109,6 @@ conteudo::-webkit-scrollbar {
     margin-right: 22px;
 
     border: none;
+
+    color: #000000;
 }
