@@ -5,6 +5,9 @@ body {
 
     background-color: #E5E5E5;
 }
+strong {
+    font-weight: 700;
+}
 
 /*---------- Formatação do cabeçalho----------*/
 .cabecalho {
@@ -37,3 +40,32 @@ body {
 }
 
 /*---------- Formatação do conteúdo ----------*/
+.conteudo {
+    width: 100%;
+    height: 100%;
+
+    margin: 90px auto;
+
+    font-size: 15px;
+}
+.conteudo div {
+    width: 100%;
+    margin-bottom: 4px;
+    padding: 8px;
+    line-height: 22px;
+    word-break: break-word;
+}
+.horario {
+    margin-right: 5px;
+    color: #AAAAAA;
+}
+.mensagem {
+    background: #DCDCDC;
+}
+.mensagem-dois{
+    background: #FFFFFF;
+}
+.saida {
+    background: #FFDEDE;
+}
+/*---------- Formatação do rodapé ----------*/
