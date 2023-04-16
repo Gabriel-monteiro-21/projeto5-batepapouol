@@ -6,20 +6,42 @@ let filtrar = [];
 
 let pararSetInterval;
 
-function erroAoDigitarOnome(error){
+function erroAoDigitarOnome(error) {
     console.log('Erro ao digitar o nome');
-    
-    if(error.response.status === 400){
+
+    if (error.response.status === 400) {
         alert('Nome de usuário já cadastrado');
         window.location.reload(true);
     }
 }
 
-function filtrarMensagens(){
+function filtrarMensagens() {
     console.log(filtrar);
 }
 
-function pegarMensagensDeuCerto(resposta){
+function filtrarMensagens() {
+
+    const listaMensagens = document.querySelector('.mensagens-conteudo');
+    listaMensagens.innerHTML = '';
+
+    for (let i = 0; i < filtrar.length; i++) {
+        let mensagens = filtrar[i];
+
+        let carregarMensagens = `
+            <div class="saida">
+                    <span class="horario">${mensagens.time}</span>
+                    <strong>${mensagens.from}</strong>
+                    <span> reservadamente para </span>
+                    <strong>${mensagens.to}</strong>
+                    <span>${mensagens.text}</span>
+            </div>
+        `;
+
+        listaMensagens.innerHTML += carregarMensagens;
+    }
+}
+
+function pegarMensagensDeuCerto(resposta) {
     console.log(resposta);
     filtrar = resposta.data;
 
@@ -27,7 +49,7 @@ function pegarMensagensDeuCerto(resposta){
 
 }
 
-function sucessoAoDigitarNome(sucesso){
+function sucessoAoDigitarNome(sucesso) {
     console.log('Sucesso ao digitar o nome');
     console.log(sucesso);
 
@@ -35,26 +57,26 @@ function sucessoAoDigitarNome(sucesso){
     promise.then(pegarMensagensDeuCerto);
 }
 
-function entrar(){
+function entrar() {
 
     entrarSala = prompt('digite o seu nome');
 
-    while(entrarSala === '' || entrarSala === null){
+    while (entrarSala === '' || entrarSala === null) {
         alert('digite o seu nome!');
         entrarSala = prompt('digite o seu nome');
     }
 
-    const promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/participants ', {name:entrarSala});
+    const promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/participants ', { name: entrarSala });
     promise.then(sucessoAoDigitarNome);
     promise.catch(erroAoDigitarOnome);
 
     pararSetInterval = setInterval(ficarNaSala, 5000);
 }
-function ficarNaSala(){
-    promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/status', {name:entrarSala});
+function ficarNaSala() {
+    promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/status', { name: entrarSala });
     promise.catch(erroEmFicarConectado);
 }
-function erroEmFicarConectado(error){
+function erroEmFicarConectado(error) {
     console.log(error)
     alert('Erro inesperado de conexão entre novamente');
     window.location.reload(true);
