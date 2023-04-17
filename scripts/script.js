@@ -6,6 +6,35 @@ let filtrar = [];
 
 let idIntervalpararSetInterval, idIntervalPararBuscarMensagens;
 
+function mensagemEnviada(sucesso){
+
+    buscarMensagens()
+
+}
+
+function mensagemNaoEnviada(error){
+    console.log('mensagem não foi enviada');
+    alert('ocorreu um erro ao enviar a mensagem');
+    window.location.reload();
+}
+
+function enviarMensagem(){
+    const elemento =  document.querySelector(".barra-digitar-aqui");
+
+    const obejetoDeEnviarMensagem = {
+            from: entrarSala,
+            to: "Todos",
+            text:  elemento.value,
+            type: "message" // ou "private_message" para o bônus
+        };
+
+        const promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/messages', obejetoDeEnviarMensagem);
+        promise.then(mensagemEnviada);
+        promise.catch(mensagemNaoEnviada);
+
+        elemento.value = '';
+}
+
 function erroAoDigitarOnome(error) {
     console.log('Erro ao digitar o nome');
 
@@ -31,7 +60,7 @@ function filtrarMensagens() {
             <div class="saida">
                     <span class="horario">${mensagens.time}</span>
                     <strong>${mensagens.from}</strong>
-                    <span> reservadamente para </span>
+                    <span> para </span>
                     <strong>${mensagens.to}</strong>
                     <span>${mensagens.text}</span>
             </div>
