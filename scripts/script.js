@@ -85,7 +85,6 @@ function filtrarMensagens() {
         listaMensagens.innerHTML += carregarMensagens;
     }
 }
-
 function pegarMensagensDeuCerto(resposta) {
     console.log(resposta);
     filtrar = resposta.data;
