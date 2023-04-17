@@ -6,33 +6,33 @@ let filtrar = [];
 
 let idIntervalpararSetInterval, idIntervalPararBuscarMensagens;
 
-function mensagemEnviada(sucesso){
+function mensagemEnviada(sucesso) {
 
     buscarMensagens()
 
 }
 
-function mensagemNaoEnviada(error){
+function mensagemNaoEnviada(error) {
     console.log('mensagem não foi enviada');
     alert('ocorreu um erro ao enviar a mensagem');
     window.location.reload();
 }
 
-function enviarMensagem(){
-    const elemento =  document.querySelector(".barra-digitar-aqui");
+function enviarMensagem() {
+    const elemento = document.querySelector(".barra-digitar-aqui");
 
     const obejetoDeEnviarMensagem = {
-            from: entrarSala,
-            to: "Todos",
-            text:  elemento.value,
-            type: "message" // ou "private_message" para o bônus
-        };
+        from: entrarSala,
+        to: "Todos",
+        text: elemento.value,
+        type: "message" // ou "private_message" para o bônus
+    };
 
-        const promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/messages', obejetoDeEnviarMensagem);
-        promise.then(mensagemEnviada);
-        promise.catch(mensagemNaoEnviada);
+    const promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/messages', obejetoDeEnviarMensagem);
+    promise.then(mensagemEnviada);
+    promise.catch(mensagemNaoEnviada);
 
-        elemento.value = '';
+    elemento.value = '';
 }
 
 function erroAoDigitarOnome(error) {
@@ -45,10 +45,6 @@ function erroAoDigitarOnome(error) {
 }
 
 function filtrarMensagens() {
-    console.log(filtrar);
-}
-
-function filtrarMensagens() {
 
     const listaMensagens = document.querySelector('.mensagens-conteudo');
     listaMensagens.innerHTML = '';
@@ -57,7 +53,7 @@ function filtrarMensagens() {
         let mensagens = filtrar[i];
 
         let carregarMensagens = `
-            <div class="saida">
+            <div class="mensagem-dois" data-test="message">
                     <span class="horario">${mensagens.time}</span>
                     <strong>${mensagens.from}</strong>
                     <span> para </span>
@@ -65,6 +61,26 @@ function filtrarMensagens() {
                     <span>${mensagens.text}</span>
             </div>
         `;
+
+        if (mensagens.type === 'private_message') {
+            carregarMensagens = `
+            <div class="saida">
+                    <span class="horario">${mensagens.time}</span>
+                    <strong>${mensagens.from}</strong>
+                    <span> reservadamente para </span>
+                    <strong>${mensagens.to}</strong>
+                    <span>${mensagens.text}</span>
+            </div>
+        `;
+        } else if (mensagens.type === 'status') {
+            carregarMensagens = `
+            <div class="mensagem" data-test="message">
+                    <span class="horario">${mensagens.time}</span>
+                    <strong>${mensagens.from}</strong>
+                    <span>${mensagens.text}</span>
+            </div>
+        `;
+        }
 
         listaMensagens.innerHTML += carregarMensagens;
     }
@@ -77,12 +93,12 @@ function pegarMensagensDeuCerto(resposta) {
     filtrarMensagens();
 
 }
-function pegarMensagensNaoDeuCerto(error){
+function pegarMensagensNaoDeuCerto(error) {
     console.log('Erro ao pegar as mensagens');
     alert('Ocorreu um erro ao pegar as mensagens do chat');
 }
 
-function buscarMensagens(){
+function buscarMensagens() {
     const promise = axios.get('https://mock-api.driven.com.br/api/vm/uol/messages');
     promise.then(pegarMensagensDeuCerto);
     promise.catch(pegarMensagensNaoDeuCerto);
@@ -96,7 +112,7 @@ function sucessoAoDigitarNome(sucesso) {
     promise.then(pegarMensagensDeuCerto);
     promise.catch(pegarMensagensNaoDeuCerto);
 
-    idIntervalPararBuscarMensagens = setInterval( buscarMensagens, 3000);
+    idIntervalPararBuscarMensagens = setInterval(buscarMensagens, 3000);
 }
 
 function entrar() {
@@ -112,7 +128,7 @@ function entrar() {
     promise.then(sucessoAoDigitarNome);
     promise.catch(erroAoDigitarOnome);
 
-    idIntervalpararSetInterval = setInterval( ficarNaSala, 5000);
+    idIntervalpararSetInterval = setInterval(ficarNaSala, 5000);
 }
 function ficarNaSala() {
     promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/status', { name: entrarSala });
