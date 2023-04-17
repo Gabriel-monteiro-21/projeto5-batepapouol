@@ -22,33 +22,33 @@
     </div>
     <div class="conteudo">
         <div class="mensagens-conteudo">
-            <div class="mensagem">
+            <div class="mensagem" data-test="message">
                 <span class="horario">(09:21:45)</span>
                 <strong>João</strong>
                 <span>entra na sala...</span>
             </div>
-            <div class="mensagem-dois">
+            <div class="mensagem-dois" data-test="message">
                 <span class="horario">(09:22:28)</span>
                 <strong>João</strong>
                 <span> para </span>
                 <strong>Todos:</strong>
                 <span>Bom dia!</span>
             </div>
-            <div class="mensagem-dois">
+            <div class="mensagem-dois" data-test="message">
                 <span class="horario">(09:22:38)</span>
                 <strong>Maria</strong>
                 <span> para </span>
                 <strong>João:</strong>
                 <span>Oi João :)</span>
             </div>
-            <div class="saida">
+            <div class="saida" data-test="message">
                 <span class="horario">(09:21:48)</span>
                 <strong>João</strong>
                 <span> reservadamente para </span>
                 <strong>Maria: </strong>
                 <span>Oi gatinha quer tc?</span>
             </div>
-            <div class="mensagem">
+            <div class="mensagem" data-test="message">
                 <span class="horario">(09:22:58)</span>
                 <strong>Maria</strong>
                 <span>sai da sala...</span>
@@ -57,9 +57,9 @@
     </div>
     <div class="rodape">
         <div class="mensagem-rodape">
-            <input placeholder="Escreva aqui..." class="barra-digitar-aqui"></input>
+            <input placeholder="Escreva aqui..." class="barra-digitar-aqui" data-test="input-message"></input>
         </div>
-        <button onclick = "enviarMensagem()" >
+        <button onclick = "enviarMensagem()" data-test="send-message">
             <ion-icon name="paper-plane-outline"></ion-icon>
         </button>
     </div>
