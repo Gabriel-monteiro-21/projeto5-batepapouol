@@ -4,7 +4,7 @@ let entrarSala;
 
 let filtrar = [];
 
-let pararSetInterval;
+let idIntervalpararSetInterval, idIntervalPararBuscarMensagens;
 
 function erroAoDigitarOnome(error) {
     console.log('Erro ao digitar o nome');
@@ -48,6 +48,16 @@ function pegarMensagensDeuCerto(resposta) {
     filtrarMensagens();
 
 }
+function pegarMensagensNaoDeuCerto(error){
+    console.log('Erro ao pegar as mensagens');
+    alert('Ocorreu um erro ao pegar as mensagens do chat');
+}
+
+function buscarMensagens(){
+    const promise = axios.get('https://mock-api.driven.com.br/api/vm/uol/messages');
+    promise.then(pegarMensagensDeuCerto);
+    promise.catch(pegarMensagensNaoDeuCerto);
+}
 
 function sucessoAoDigitarNome(sucesso) {
     console.log('Sucesso ao digitar o nome');
@@ -55,6 +65,9 @@ function sucessoAoDigitarNome(sucesso) {
 
     const promise = axios.get('https://mock-api.driven.com.br/api/vm/uol/messages');
     promise.then(pegarMensagensDeuCerto);
+    promise.catch(pegarMensagensNaoDeuCerto);
+
+    idIntervalPararBuscarMensagens = setInterval( buscarMensagens, 3000);
 }
 
 function entrar() {
@@ -70,7 +83,7 @@ function entrar() {
     promise.then(sucessoAoDigitarNome);
     promise.catch(erroAoDigitarOnome);
 
-    pararSetInterval = setInterval(ficarNaSala, 5000);
+    idIntervalpararSetInterval = setInterval( ficarNaSala, 5000);
 }
 function ficarNaSala() {
     promise = axios.post('https://mock-api.driven.com.br/api/vm/uol/status', { name: entrarSala });
