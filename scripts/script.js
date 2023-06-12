@@ -1,4 +1,4 @@
-axios.defaults.headers.common['Authorization'] = 'Ta3NEXJU43DcOsWwb8USFlxN';
+axios.defaults.headers.common['Authorization'] = 'rU1wV7ocExePOJEixfjn75kF';
 
 let entrarSala;
 
